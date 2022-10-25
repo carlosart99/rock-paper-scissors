@@ -7,30 +7,45 @@ function playRound(playerSelection, computerSelection){
     computerSelection = computerSelection.toLowerCase();
     if (playerSelection === computerSelection){return "Draw!"}
     else if (playerSelection === "rock"){
-        if (computerSelection == "paper"){return "You Lose! Paper beats Rock"}
-        else {return "You Won! Rock beats Scissors"}
+        if (computerSelection == "paper"){computerScore++; return "You Lose! Paper beats Rock"}
+        else {playerScore++; return "You Won! Rock beats Scissors"}
     }
     else if (playerSelection === "paper"){
-        if (computerSelection == "rock"){return "You Won! Paper beats Rock"}
-        else {return "You Lose! Scissors beats Paper"}
+        if (computerSelection == "rock"){playerScore++; return "You Won! Paper beats Rock"}
+        else {computerScore++; return "You Lose! Scissors beats Paper"}
     }    
     else{
-        if (computerSelection == "paper"){return "You won! Scissors beat Paper"}
-        else {return "You Lose! Rock beats Scissors"}
+        if (computerSelection == "paper"){playerScore++; return "You won! Scissors beat Paper"}
+        else {computerScore++; return "You Lose! Rock beats Scissors"}
     }
 
 }
 
-function play(){
-    let computerSelection, playerSelection;
-    for (let i=0; i<5; i++){
-        computerSelection = getComputerChoice(items);
-        playerSelection = prompt("Enter play: ");                
-        console.log("Computer: " + computerSelection + " Player: " + playerSelection)
-        console.log(playRound(playerSelection, computerSelection));
-    }
+function play(playerSelection){
+    let computerSelection;
+    computerSelection = getComputerChoice(items);    
+    return playRound(playerSelection, computerSelection);
 }
 
 let items = ['Rock', 'Paper', 'Scissors'];
+let computerScore = 0, playerScore = 0, round=0;
 
-play();
+const buttons = document.querySelectorAll('button');
+const msg = document.querySelector('#msg-container');
+const wins = document.querySelector('#wins');
+const loses = document.querySelector('#loses');
+const score = document.querySelector('.score')
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        let playerSelection = button.id;
+        let computerSelection = getComputerChoice(items);
+        wins.textContent = playerScore;
+        loses.textContent = computerScore;    
+        msg.textContent = playRound(playerSelection, computerSelection);
+        round++;
+        console.log(round)
+        if (round === 5){            
+            score.innerHTML = '<p>You won!</p>';
+        }
+    });
+})
