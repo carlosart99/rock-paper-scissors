@@ -28,24 +28,41 @@ function play(playerSelection){
 }
 
 let items = ['Rock', 'Paper', 'Scissors'];
-let computerScore = 0, playerScore = 0, round=0;
+let computerScore = 0, playerScore = 0, round=1;
 
-const buttons = document.querySelectorAll('button');
+const buttons = document.querySelectorAll('.btn');
+const playAgainButton = document.querySelectorAll('#again');
 const msg = document.querySelector('#msg-container');
 const wins = document.querySelector('#wins');
 const loses = document.querySelector('#loses');
-const score = document.querySelector('.score')
-buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-        let playerSelection = button.id;
-        let computerSelection = getComputerChoice(items);
+const score = document.querySelector('.score');
+const roundCounter = document.querySelector('#round-counter');
+const container = document.querySelector('.container');
+const btnContainer = document.querySelector('.btn-container');
+
+document.addEventListener('click',function(e){
+    if(e.target && e.target.id==='again'){
+        computerScore = 0, playerScore = 0, round=1;
         wins.textContent = playerScore;
-        loses.textContent = computerScore;    
+        loses.textContent = computerScore;
+        roundCounter.textContent = round;
+        msg.textContent = 'Make your choice and try to defeat the machine in 5 rounds';
+        btnContainer.innerHTML = '<button class="btn" id="rock">Rock</button><button class= "btn" id="paper">Paper</button><button class= "btn" id="scissors">Scissors</button>'
+    }
+    else if (e.target && e.target.className==='btn'){
+        let playerSelection = e.target.id;
+        let computerSelection = getComputerChoice(items);
         msg.textContent = playRound(playerSelection, computerSelection);
-        round++;
-        console.log(round)
-        if (round === 5){            
-            score.innerHTML = '<p>You won!</p>';
+        wins.textContent = playerScore;
+        loses.textContent = computerScore;        
+        round+=1;
+        roundCounter.textContent = round;        
+        if (round === 6){
+            if (playerScore > computerScore){msg.textContent = 'You Won!';}
+            else if (playerScore < computerScore){msg.textContent = 'You Lose'}
+            else{msg.textContent = 'Draw'}
+            btnContainer.innerHTML = '<button id="again">Play again</button>'
         }
-    });
-})
+    }
+ });
+

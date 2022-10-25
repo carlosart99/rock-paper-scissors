@@ -11,15 +11,20 @@
 <body>
     <div class="container">
         <h1>Rock Paper Scissors</h1>
-        <p id="msg-container">Make your choice and try to defeat the machine!</p>
+        <p id="msg-container">Make your choice and try to defeat the machine in 5 rounds</p>
         <div class="btn-container">
-            <button id="rock">Rock</button>
-            <button id="paper">Paper</button>
-            <button id="scissors">Scissors</button>        
+            <button class= "btn" id="rock">Rock</button>
+            <button class= "btn" id="paper">Paper</button>
+            <button class= "btn" id="scissors">Scissors</button>        
         </div>
-        <div class='score'>
-            <p>Wins <span id="wins">0</span></p>
-            <p>Loses <span id="loses">0</span></p>
+        <div class="info">
+            <div class='round'>
+                <h2>Round <span id="round-counter">1</span></h2>
+            </div>
+            <div class='score'>            
+                <p>Wins <span id="wins">0</span></p>
+                <p>Loses <span id="loses">0</span></p>
+            </div>
         </div>
     </div>
 </body>
